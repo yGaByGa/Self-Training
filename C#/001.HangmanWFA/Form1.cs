@@ -44,10 +44,12 @@ namespace _001.Hangman
         string[] wordArr = new string[] { };
 
         int wrongs = 0;
+
+        bool checkForNumbers = false;
         bool wr = false;
         bool won = false;
         bool error = false;
-
+        
         private void textInputWord_TextChanged(object sender, EventArgs e)
         {
             //textInputWord
@@ -65,13 +67,27 @@ namespace _001.Hangman
 
         private void buttonInputWord_Click(object sender, EventArgs e)
         {
+            //check for value string input != from int
+            checkForNumbers = int.TryParse(textInputWord.Text , out wrongs);
+
             if (Convert.ToString(textInputWord.Text) == "")
             {
-                MessageBox.Show("Не си въвел дума! Въведи дума от 3 до 10 букви!", " Грешка !");
+                MessageBox.Show("Не си въвел дума! " +
+                    "Въведи дума от 3 до 10 букви!", " Грешка !");
+                textInputWord.Focus();
             }
             else if (textInputWord.Text.Length < 3)
             {
-                MessageBox.Show("Въвели сте дума по малко от 3 букви! Въведи дума от 3 до 10 букви!", " Грешка !");
+                MessageBox.Show("Въвели сте дума по малко от 3 букви! " +
+                    "Въведи дума от 3 до 10 букви!", " Грешка !");
+                textInputWord.Focus();
+            }
+            else if (checkForNumbers == true)
+            {
+                MessageBox.Show("Въвели сте числа! " +
+                    "Моля въведи дума от 3 до 10 букви!", " Грешка !");
+                textInputWord.Clear();
+                textInputWord.Focus();
             }
             else
             {
@@ -120,6 +136,16 @@ namespace _001.Hangman
             for (int y = 0; y < 1; y++)
             {
                 //catch errors
+                checkForNumbers = int.TryParse(txtInputChar.Text, out wrongs);
+                if (checkForNumbers == true)
+                {
+                    MessageBox.Show("Въвели сте число! " +
+                    "Моля въведи буква или се опитай да познаеш тайната дума!", " Грешка !");
+                    txtInputChar.Clear();
+                    txtInputChar.Focus();
+                    break;
+                }
+
                 try
                 {
                     wr = false;
@@ -131,7 +157,9 @@ namespace _001.Hangman
                 {
                     MessageBox.Show("Не си въвел буква или дума!", "Грешка!");
                     error = true;
+                    txtInputChar.Focus();
                 }
+
                 //check wardArr if secred word is guess - game end with victory
                 for (int i = 0; i < wordArr.Length; i++)
                 {
@@ -458,16 +486,27 @@ namespace _001.Hangman
                     MessageBox.Show("Вие губите, не успяхте да познаете тайната дума: \""
                         + textInputWord.Text + "\"!", "Game Over");
 
+                    //show panel for input new secred word
                     textInputWord.Visible = true;
                     buttonInputWord.Visible = true;
                     label5.Visible = true;
                     panel2.Visible = true;
-                    textInputWord.Clear();
-                }
 
+                    //restart all valus
+                    textInputWord.Clear();
+                    printWord_.Clear();
+                    historyChars.Clear();
+                    txtInputChar.Clear();
+                    wordInChar = new List<char>();
+                    inputChar = new List<char>();
+                    wrongs = 0;
+
+                    //focus on text box for input word - textInputWord
+                    this.ActiveControl = textInputWord;
+                    textInputWord.Focus();
+                    break;
+                }
             }
-            //focus back to text box for input char
-            txtInputChar.Focus();
         }
 
         private void button1_Click_1(object sender, EventArgs e)
