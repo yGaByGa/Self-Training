@@ -255,9 +255,10 @@
             this.panel2.Controls.Add(this.buttonInputWord);
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.textInputWord);
-            this.panel2.Location = new System.Drawing.Point(12, 289);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 28);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(633, 329);
+            this.panel2.Size = new System.Drawing.Size(633, 334);
             this.panel2.TabIndex = 13;
             // 
             // screen2
@@ -277,7 +278,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(633, 510);
+            this.ClientSize = new System.Drawing.Size(633, 362);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.buttonCheckChar);
             this.Controls.Add(this.label4);

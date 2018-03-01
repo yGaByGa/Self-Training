@@ -14,7 +14,7 @@ namespace _001.Hangman
     {
         private void Form1_Load(object sender, EventArgs e)
         {
-            //ban write and maring text in textboxs
+            //ban write text in textboxs
             //screen2.Enabled = false;
             historyChars.Enabled = false;
             printWord_.Enabled = false;
@@ -24,7 +24,7 @@ namespace _001.Hangman
             this.ActiveControl = textInputWord;
             textInputWord.Focus();
 
-            //Message with game rulz
+            //Message with game rule
             MessageBox.Show(@"Правила на играта:
 1. Въведете дума на кирилица или латиница от 3 до 10 букви!
 2. Въвеждате по една буква всеки път за да се опитате 
@@ -49,7 +49,7 @@ namespace _001.Hangman
         bool wr = false;
         bool won = false;
         bool error = false;
-        
+
         private void textInputWord_TextChanged(object sender, EventArgs e)
         {
             //textInputWord
@@ -68,9 +68,27 @@ namespace _001.Hangman
         private void buttonInputWord_Click(object sender, EventArgs e)
         {
             //check for value string input != from int
-            checkForNumbers = int.TryParse(textInputWord.Text , out wrongs);
 
-            if (Convert.ToString(textInputWord.Text) == "")
+            //set the checker for "false"
+            checkForNumbers = false;
+
+            foreach (char item in textInputWord.Text)
+            {
+                if (char.IsDigit(item))
+                {
+                    //if in textInputWord.Text set the checker "true"
+                    checkForNumbers = true;
+                }
+            }
+
+            if (checkForNumbers == true)
+            {
+                MessageBox.Show("Въвели сте числа! " +
+                    "Моля въведи дума от 3 до 10 букви!", " Грешка !");
+                textInputWord.Clear();
+                textInputWord.Focus();
+            }
+            else if (Convert.ToString(textInputWord.Text) == "")
             {
                 MessageBox.Show("Не си въвел дума! " +
                     "Въведи дума от 3 до 10 букви!", " Грешка !");
@@ -80,13 +98,6 @@ namespace _001.Hangman
             {
                 MessageBox.Show("Въвели сте дума по малко от 3 букви! " +
                     "Въведи дума от 3 до 10 букви!", " Грешка !");
-                textInputWord.Focus();
-            }
-            else if (checkForNumbers == true)
-            {
-                MessageBox.Show("Въвели сте числа! " +
-                    "Моля въведи дума от 3 до 10 букви!", " Грешка !");
-                textInputWord.Clear();
                 textInputWord.Focus();
             }
             else
@@ -136,11 +147,21 @@ namespace _001.Hangman
             for (int y = 0; y < 1; y++)
             {
                 //catch errors
-                checkForNumbers = int.TryParse(txtInputChar.Text, out wrongs);
+                //set the checker for "false"
+                checkForNumbers = false;
+                foreach (char item in txtInputChar.Text)
+                {
+                    if (char.IsDigit(item))
+                    {
+                        //if in textInputWord.Text set the checker "true"
+                        checkForNumbers = true;
+                    }
+                }
+
                 if (checkForNumbers == true)
                 {
-                    MessageBox.Show("Въвели сте число! " +
-                    "Моля въведи буква или се опитай да познаеш тайната дума!", " Грешка !");
+                    MessageBox.Show("Въвели сте числа! " +
+                        "Моля въведи дума от 3 до 10 букви!", " Грешка !");
                     txtInputChar.Clear();
                     txtInputChar.Focus();
                     break;
@@ -160,7 +181,7 @@ namespace _001.Hangman
                     txtInputChar.Focus();
                 }
 
-                //check wardArr if secred word is guess - game end with victory
+                //check wardArr if secret word is guess - game end with victory
                 for (int i = 0; i < wordArr.Length; i++)
                 {
                     if (wordArr[i] != "_")
@@ -178,13 +199,13 @@ namespace _001.Hangman
                 {
                     MessageBox.Show("Поздравления, ти позна тайната дума!", "Победа!");
 
-                    //show panel for input new secred word
+                    //show panel for input new secret word
                     textInputWord.Visible = true;
                     buttonInputWord.Visible = true;
                     label5.Visible = true;
                     panel2.Visible = true;
 
-                    //restart all valus
+                    //restart all values
                     textInputWord.Clear();
                     printWord_.Clear();
                     historyChars.Clear();
@@ -210,7 +231,7 @@ namespace _001.Hangman
                     {
                         wordArr[i] = Convert.ToString(txtInputChar.Text[0]);
                         wr = true;
-                        //print if the char is in the secred word
+                        //print if the char is in the secret word
                         switch (i)
                         {
                             case 0:
@@ -304,7 +325,7 @@ namespace _001.Hangman
                     }
                     else
                     {
-                        //print if dont have char in the secred word
+                        //print if don't have char in the secret word
                         switch (i)
                         {
                             case 0:
@@ -409,7 +430,7 @@ namespace _001.Hangman
                 //print historyChars - inputs chars in the game
                 foreach (var x in inputChar)
                 {
-                    //if input nothink and have error dont print history chars
+                    //if input nothing and have error don't print history chars
                     if (error == true)
                     {
                         break;
@@ -420,7 +441,7 @@ namespace _001.Hangman
                 //clear the input char 
                 txtInputChar.Clear();
 
-                //print wrongs in pictyres
+                //print wrongs in pictures
                 if (wrongs == 0)
                 {
                     screen2.Text = @"______
@@ -486,13 +507,13 @@ namespace _001.Hangman
                     MessageBox.Show("Вие губите, не успяхте да познаете тайната дума: \""
                         + textInputWord.Text + "\"!", "Game Over");
 
-                    //show panel for input new secred word
+                    //show panel for input new secret word
                     textInputWord.Visible = true;
                     buttonInputWord.Visible = true;
                     label5.Visible = true;
                     panel2.Visible = true;
 
-                    //restart all valus
+                    //restart all values
                     textInputWord.Clear();
                     printWord_.Clear();
                     historyChars.Clear();
@@ -523,7 +544,45 @@ namespace _001.Hangman
         {
             if (e.KeyCode == Keys.Enter)
             {
-                buttonInputWord.PerformClick();
+                //check for numbers
+
+                //set the checker for "false"
+                checkForNumbers = false;
+
+                foreach (char item in textInputWord.Text)
+                {
+                    if (char.IsDigit(item))
+                    {
+                        //if in textInputWord.Text set the checker "true"
+                        checkForNumbers = true;
+                    }
+                }
+
+                if (checkForNumbers == true)
+                {
+                    MessageBox.Show("Въвели сте числа! " +
+                        "Моля въведи дума от 3 до 10 букви!", " Грешка !");
+                    textInputWord.Clear();
+                    textInputWord.Focus();
+                }
+                else if (Convert.ToString(textInputWord.Text) == "")
+                {
+                    MessageBox.Show("Не си въвел дума! " +
+                        "Въведи дума от 3 до 10 букви!", " Грешка !");
+                    textInputWord.Clear();
+                    textInputWord.Focus();
+                }
+                else if (textInputWord.Text.Length < 3)
+                {
+                    MessageBox.Show("Въвели сте дума по малко от 3 букви! " +
+                        "Въведи дума от 3 до 10 букви!", " Грешка !");
+                    textInputWord.Clear();
+                    textInputWord.Focus();
+                }
+                else
+                {
+                    buttonInputWord.PerformClick();
+                }
             }
         }
 
