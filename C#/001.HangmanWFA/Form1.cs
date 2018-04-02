@@ -80,23 +80,23 @@ namespace _001.Hangman
                     checkForNumbers = true;
                 }
             }
-
+            
             if (checkForNumbers == true)
             {
-                MessageBox.Show("Въвели сте числа! " +
-                    "Моля въведи дума от 3 до 10 букви!", " Грешка !");
+                MessageBox.Show("Въвели сте число! \n" +
+                    "Моля въведи буква!", " Грешка !");
                 textInputWord.Clear();
                 textInputWord.Focus();
             }
             else if (Convert.ToString(textInputWord.Text) == "")
             {
-                MessageBox.Show("Не си въвел дума! " +
+                MessageBox.Show("Не си въвел дума! \n" +
                     "Въведи дума от 3 до 10 букви!", " Грешка !");
                 textInputWord.Focus();
             }
             else if (textInputWord.Text.Length < 3)
             {
-                MessageBox.Show("Въвели сте дума по малко от 3 букви! " +
+                MessageBox.Show("Въвели сте дума по малко от 3 букви! \n" +
                     "Въведи дума от 3 до 10 букви!", " Грешка !");
                 textInputWord.Focus();
             }
@@ -160,7 +160,7 @@ namespace _001.Hangman
 
                 if (checkForNumbers == true)
                 {
-                    MessageBox.Show("Въвели сте числа! " +
+                    MessageBox.Show("Въвели сте числа! \n" +
                         "Моля въведи дума от 3 до 10 букви!", " Грешка !");
                     txtInputChar.Clear();
                     txtInputChar.Focus();
@@ -560,21 +560,21 @@ namespace _001.Hangman
 
                 if (checkForNumbers == true)
                 {
-                    MessageBox.Show("Въвели сте числа! " +
+                    MessageBox.Show("Въвели сте число! \n" +
                         "Моля въведи дума от 3 до 10 букви!", " Грешка !");
                     textInputWord.Clear();
                     textInputWord.Focus();
                 }
                 else if (Convert.ToString(textInputWord.Text) == "")
                 {
-                    MessageBox.Show("Не си въвел дума! " +
+                    MessageBox.Show("Не си въвел дума! \n" +
                         "Въведи дума от 3 до 10 букви!", " Грешка !");
                     textInputWord.Clear();
                     textInputWord.Focus();
                 }
                 else if (textInputWord.Text.Length < 3)
                 {
-                    MessageBox.Show("Въвели сте дума по малко от 3 букви! " +
+                    MessageBox.Show("Въвели сте дума по малко от 3 букви! \n" +
                         "Въведи дума от 3 до 10 букви!", " Грешка !");
                     textInputWord.Clear();
                     textInputWord.Focus();
